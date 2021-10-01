@@ -111,6 +111,13 @@ abstract class ModuleController extends Controller
     protected $filters = [];
 
     /**
+     * Additional links to display in the listing filter
+     *
+     * @var array
+     */
+    protected $filterLinks = [];
+
+    /**
      * Default orders for the index view.
      *
      * @var array
@@ -329,7 +336,7 @@ abstract class ModuleController extends Controller
 
         if ($this->getIndexOption('editInModal')) {
             return $this->request->ajax()
-            ? Response::json($this->modalFormData($submodule ?? $id))
+            ? Response::json($this->modalFormData($submoduleId ?? $id))
             : Redirect::to(moduleRoute($this->moduleName, $this->routePrefix, 'index'));
         }
 
@@ -668,6 +675,7 @@ abstract class ModuleController extends Controller
             'tableMainFilters' => $this->getIndexTableMainFilters($items),
             'filters' => json_decode($this->request->get('filter'), true) ?? [],
             'hiddenFilters' => array_keys(Arr::except($this->filters, array_keys($this->defaultFilters))),
+            'filterLinks' => $this->filterLinks ?? [],
             'maxPage' => method_exists($items, 'lastPage') ? $items->lastPage() : 1,
             'defaultMaxPage' => method_exists($items, 'total') ? ceil($items->total() / $this->perPage) : 1,
             'offset' => method_exists($items, 'perPage') ? $items->perPage() : count($items),

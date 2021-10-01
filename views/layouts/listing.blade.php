@@ -51,6 +51,15 @@
                     @if($create)
                         <div slot="additional-actions">
                             <a17-button variant="validate" size="small" v-on:click="create">Add new</a17-button>
+                            @foreach($filterLinks as $link)
+                                <a17-button el="a" href="{{ $link['url'] ?? '#' }}" download="{{ $link['download'] ?? '' }}" rel="{{ $link['rel'] ?? '' }}" target="{{ $link['target'] ?? '' }}" variant="small secondary">{{ $link['label'] }}</a17-button>
+                            @endforeach
+                        </div>
+                    @elseif(isset($filterLinks) && count($filterLinks))
+                        <div slot="additional-actions">
+                            @foreach($filterLinks as $link)
+                                <a17-button el="a" href="{{ $link['url'] ?? '#' }}" download="{{ $link['download'] ?? '' }}" rel="{{ $link['rel'] ?? '' }}" target="{{ $link['target'] ?? '' }}" variant="small secondary">{{ $link['label'] }}</a17-button>
+                            @endforeach
                         </div>
                     @endif
                 </a17-filter>
@@ -117,11 +126,11 @@
         columns: {!! json_encode($tableColumns) !!},
         navigation: {!! json_encode($tableMainFilters) !!},
         filter: { status: '{{ $filters['status'] ?? $defaultFilterSlug ?? 'all' }}' },
-        page: {{ request('page') ?? 1 }},
-        maxPage: {{ $maxPage ?? 1 }},
-        defaultMaxPage: {{ $defaultMaxPage ?? 1 }},
-        offset: {{ request('offset') ?? $offset ?? 60 }},
-        defaultOffset: {{ $defaultOffset ?? 60 }},
+        page: '{{ request('page') ?? 1 }}',
+        maxPage: '{{ $maxPage ?? 1 }}',
+        defaultMaxPage: '{{ $defaultMaxPage ?? 1 }}',
+        offset: '{{ request('offset') ?? $offset ?? 60 }}',
+        defaultOffset: '{{ $defaultOffset ?? 60 }}',
         sortKey: '{{ $reorder ? (request('sortKey') ?? '') : (request('sortKey') ?? '') }}',
         sortDir: '{{ request('sortDir') ?? 'asc' }}',
         baseUrl: '{{ rtrim(config('app.url'), '/') . '/' }}',

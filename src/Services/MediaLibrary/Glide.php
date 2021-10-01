@@ -52,10 +52,10 @@ class Glide implements ImageServiceInterface
         $this->app = $app;
         $this->request = $request;
 
-        $baseUrl = join([
+        $baseUrl = join('/', [
             rtrim($this->config->get('twill.glide.base_url'), '/'),
             ltrim($this->config->get('twill.glide.base_path'), '/'),
-        ], '/');
+        ]);
 
         $this->server = ServerFactory::create([
             'response' => new LaravelResponseFactory($this->request),
@@ -63,7 +63,8 @@ class Glide implements ImageServiceInterface
             'cache' => $this->config->get('twill.glide.cache'),
             'cache_path_prefix' => $this->config->get('twill.glide.cache_path_prefix'),
             'base_url' => $baseUrl,
-            'presets' => $this->config->get('twill.glide.presets', [])
+            'presets' => $this->config->get('twill.glide.presets', []),
+            'driver' => $this->config->get('twill.glide.driver')
         ]);
 
         $this->urlBuilder = UrlBuilderFactory::create(
@@ -165,6 +166,15 @@ class Glide implements ImageServiceInterface
         $params = Arr::except($params, $this->cropParamsKeys);
 
         return $this->getUrl($id, array_replace($defaultParams, $params + $cropParams));
+    }
+
+    /**
+     * @param string $id, string $preset
+     * @return string
+     */
+    public function getPresetUrl($id, $preset)
+    {
+        return $this->getRawUrl($id) . '?p=' . $preset;
     }
 
     /**
