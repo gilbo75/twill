@@ -35,7 +35,7 @@ class ActiveNavigation
             $activeMenus = explode('.', $routeName);
 
             //starts at 1 because first segment of all back route name is 'admin'
-            $view_active_variables['_global_active_navigation'] = $activeMenus[1];
+            $view_active_variables['_global_active_navigation'] = $activeMenus[1] ?? '';
 
             if (count($activeMenus) > 2) {
                 $view_active_variables['_primary_active_navigation'] = $activeMenus[2];
