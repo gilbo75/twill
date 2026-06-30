@@ -22,6 +22,8 @@ class Repeater extends BaseFormField
 
     protected ?array $browserModule = null;
 
+    protected int $numberOfBlocksToShowAsClosed = 1;
+
     public static function make(): static
     {
         return new self(
@@ -71,6 +73,13 @@ class Repeater extends BaseFormField
     public function browserModule(?array $browserModule = null): static
     {
         $this->browserModule = $browserModule;
+
+        return $this;
+    }
+
+    public function numberOfBlocksToShowAsClosed(int $numberOfBlocksToShowAsClosed = 1): static
+    {
+        $this->numberOfBlocksToShowAsClosed = $numberOfBlocksToShowAsClosed;
 
         return $this;
     }

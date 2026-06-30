@@ -120,6 +120,11 @@
         required: false,
         default: null
       },
+      numberOfBlocksToShowAsClosed: {
+        type: Number,
+        required: false,
+        default: 1
+      },
       reorder: {
         type: Boolean,
         default: true
@@ -241,7 +246,7 @@
     mounted: function () {
       // if there are blocks, these should be all collapse by default
       this.$nextTick(function () {
-        if (this.$refs.blockList && this.blocks && this.blocks.length < 4) {
+        if (this.$refs.blockList && this.blocks && this.blocks.length < this.numberOfBlocksToShowAsClosed) {
           this.$refs.blockList.forEach((block) => block.toggleExpand())
         }
 
