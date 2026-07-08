@@ -1,6 +1,7 @@
 <a17-repeater
     type="{{ $type }}"
     @if ($max) :max="{{$max}}" @endif
+    @if ($numberOfBlocksToShowAsClosed) :number-of-blocks-to-show-as-closed="{{$numberOfBlocksToShowAsClosed}}" @endif
     @if (!$reorder) :draggable="false" @endif
     @if ($renderForBlocks) :name="repeaterName('{{ $name }}')" @else name="{{ $name }}" @endif
     @if ($browserModule) :browser="{{ json_encode($browserModule) }}" @endif

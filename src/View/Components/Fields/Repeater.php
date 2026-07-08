@@ -16,6 +16,7 @@ class Repeater extends TwillFormComponent
         public bool $allowCreate = true,
         public ?string $relation = null,
         public ?array $browserModule = null,
+        public int $numberOfBlocksToShowAsClosed = 1,
         // Generic
         bool $renderForBlocks = false,
         bool $renderForModal = false,
