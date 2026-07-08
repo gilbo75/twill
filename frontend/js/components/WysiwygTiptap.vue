@@ -36,18 +36,31 @@
                                   v-if="toolbar.bold"
                                   :isActive="editor.isActive('bold')"
                                   @btn:click="editor.chain().focus().toggleBold().run()"/>
+
             <wysiwyg-menu-bar-btn icon="italic"
                                   v-if="toolbar.italic"
                                   :isActive="editor.isActive('italic')"
                                   @btn:click="editor.chain().focus().toggleItalic().run()"/>
+
             <wysiwyg-menu-bar-btn icon="strike"
                                   v-if="toolbar.strike"
                                   :isActive="editor.isActive('strike')"
                                   @btn:click="editor.chain().focus().toggleStrike().run()"/>
+
             <wysiwyg-menu-bar-btn icon="underline"
                                   v-if="toolbar.underline"
                                   :isActive="editor.isActive('underline')"
                                   @btn:click="editor.chain().focus().toggleUnderline().run()"/>
+
+            <wysiwyg-menu-bar-btn icon="superscript"
+                                  v-if="toolbar.superscript"
+                                  :isActive="editor.isActive('superscript')"
+                                  @btn:click="editor.chain().focus().toggleSuperscript().run()"/>
+
+            <wysiwyg-menu-bar-btn icon="subscript"
+                                  v-if="toolbar.subscript"
+                                  :isActive="editor.isActive('subscript')"
+                                  @btn:click="editor.chain().focus().toggleSubscript().run()"/>
 
             <wysiwyg-menu-bar-btn icon="hr"
                                   v-if="toolbar.hr"
@@ -253,6 +266,8 @@
   import TableRow from '@tiptap/extension-table-row'
   import TableCell from '@tiptap/extension-table-cell'
   import TableHeader from '@tiptap/extension-table-header'
+  import Subscript from '@tiptap/extension-subscript'
+  import Superscript from '@tiptap/extension-superscript'
   import {mapState} from 'vuex'
 
   import StandaloneBrowser from "@/components/StandaloneBrowser.vue";
@@ -609,6 +624,14 @@
           }
           case 'underline': {
             extensions.push(Underline)
+            break;
+          }
+          case 'subscript': {
+            extensions.push(Subscript)
+            break;
+          }
+          case 'superscript': {
+            extensions.push(Superscript)
             break;
           }
           case 'table': {
