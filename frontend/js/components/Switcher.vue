@@ -62,8 +62,8 @@
         return this.published
       },
       formatTextEnabled: function () {
-        const scoreStart = compareAsc(this.startDate, (new Date().getUTCDate()))
-        const scoreEnd = compareAsc(this.endDate, (new Date()).getUTCDate())
+        const scoreStart = compareAsc(this.startDate, (new Date().toUTCString()))
+        const scoreEnd = compareAsc(this.endDate, (new Date()).toUTCString())
 
         if (this.endDate && scoreEnd < 0) return this.textExpired
         else if (this.startDate && scoreStart > 0) return this.textScheduled
