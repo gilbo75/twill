@@ -62,8 +62,9 @@
         return this.published
       },
       formatTextEnabled: function () {
-        const scoreStart = compareAsc(this.startDate, (new Date().toUTCString()))
-        const scoreEnd = compareAsc(this.endDate, (new Date()).toUTCString())
+        const currentDate = new Date().toISOString();
+        const scoreStart = compareAsc(this.startDate, currentDate)
+        const scoreEnd = compareAsc(this.endDate, currentDate)
 
         if (this.endDate && scoreEnd < 0) return this.textExpired
         else if (this.startDate && scoreStart > 0) return this.textScheduled
@@ -82,8 +83,8 @@
         }
       },
       ...mapState({
-        startDate: state => state.publication.startDate,
-        endDate: state => state.publication.endDate,
+        startDate: state => !state.publication.startDate || state.publication.startDate.includes('Z') ? state.publication.startDate : new Date(state.publication.startDate + " UTC").toISOString(),
+        endDate: state => !state.publication.endDate || state.publication.endDate.includes('Z') ? state.publication.endDate : new Date(state.publication.endDate + " UTC").toISOString(),
         published: state => state.publication.published
       })
     }
